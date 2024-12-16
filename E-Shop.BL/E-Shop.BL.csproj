@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>E_Shop.BL</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\E-Shop.DAL\E-Shop.DAL.csproj" />
+    <ProjectReference Include="..\E-Shop.Entities\E-Shop.Entities.csproj" />
+  </ItemGroup>
+
+</Project>
