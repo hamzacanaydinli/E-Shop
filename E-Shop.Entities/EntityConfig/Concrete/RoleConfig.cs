@@ -11,10 +11,10 @@ namespace E_Shop.Entities.EntityConfig.Concrete
             base.Configure(builder);
             builder.Property(p => p.RoleName).IsRequired();
             builder.Property(p => p.RoleName).HasMaxLength(50);
-            //builder.HasIndex(p => p.RoleAdi).IsUnique();
+            builder.HasIndex(p => p.RoleName).IsUnique();
 
-            //builder.HasData(new Role() { Id = "Ad", RoleAdi = "Admin", CreateDate = DateTime.Now });
-            //builder.HasData(new Role() { Id = "us", RoleAdi = "Useer", CreateDate = DateTime.Now });
+            builder.HasData(new Role() { Id = 1, RoleName = "Admin" });
+            builder.HasData(new Role() { Id = 2, RoleName = "User" });
 
         }
     }

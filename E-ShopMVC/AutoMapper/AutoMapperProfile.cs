@@ -9,7 +9,7 @@ namespace Ticari.WebMVC.AutoMapper
     {
         public AutoMapperProfile()
         {
-            CreateMap<UserInsertVM, User>().ReverseMap();
+            CreateMap<UserInsertVM, MyUser>().ReverseMap();
         }
 
     }

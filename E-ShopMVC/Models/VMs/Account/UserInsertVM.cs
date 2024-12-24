@@ -5,52 +5,35 @@ namespace E_ShopMVC.Models.VMs.Account
 {
     public class UserInsertVM
     {
-        [Required(ErrorMessage = "Ad Alani zorunludur")]
-        [MinLength(2, ErrorMessage = "En az 2 karakter olmalidir")]
-        [MaxLength(50, ErrorMessage = "En fazla 50 karakter olmalidir")]
-        public string Ad { get; set; }
 
+        //private string _tel;
 
+        [Required(ErrorMessage = "Ad alanı zorunludur")]
+        [MinLength(3, ErrorMessage = "En az 3 karakter olmalıdır")]
+        [MaxLength(15, ErrorMessage = "En fazla 15 karakter olmalıdır")]
+        public string Name { get; set; }
 
-        [Required(ErrorMessage = "Soyad Alani zorunludur")]
-        [MinLength(2, ErrorMessage = "En az 2 karakter olmalidir")]
-        [MaxLength(50, ErrorMessage = "En fazla 50 karakter olmalidir")]
-        public string Soyad { get; set; }
+        [Required(ErrorMessage = "Soyad alanı zorunludur")]
+        [MinLength(2, ErrorMessage = "En az 2 karakter olmalıdır")]
+        [MaxLength(15, ErrorMessage = "En fazla 15 karakter olmalıdır")]
+        public string SurName { get; set; }
 
-
-
-        [Required(ErrorMessage = "TcNo Alani zorunludur")]
-        [StringLength(11, ErrorMessage = "TcNo 11 Karakter olmalidir")]
-        public string TcNo { get; set; }
-
-        [Required(ErrorMessage = "Email Alani zorunludur")]
+        [Required(ErrorMessage = "Email alanı zorunludur")]
         [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
+        public string EMail { get; set; }
 
-
-        [Required(ErrorMessage = "Gsm Alani zorunludur")]
+        [Required(ErrorMessage = "Telefon alanı zorunludur")]
+        [StringLength(11, ErrorMessage = "Telefon numarası 11 karakter olmalıdır")]
+        [RegularExpression("^[0-9]{11}$", ErrorMessage = "Telefon numarası sadece 0-9 arasında rakamlardan oluşmalı ve 11 karakter olmalıdır")]
         [DataType(DataType.PhoneNumber)]
         public string Gsm { get; set; }
 
-        public bool Cinsiyet { get; set; }
-
-
-        [Required(ErrorMessage = "Şifre Alani zorunludur")]
-        [MinLength(2, ErrorMessage = "En az 3 karakter olmalidir")]
-        [MaxLength(50, ErrorMessage = "En fazla 50 karakter olmalidir")]
+        [Required(ErrorMessage = "Şifre alanı zorunludur")]
+        [MinLength(3, ErrorMessage = "En az 3 karakter olmalıdır")]
+        [MaxLength(16, ErrorMessage = "En fazla 16 karakter olmalıdır")]
         [DisplayName("Şifre")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
-        [Required(ErrorMessage = "Şifre Alani zorunludur")]
-        [MinLength(2, ErrorMessage = "En az 3 karakter olmalidir")]
-        [MaxLength(50, ErrorMessage = "En fazla 50 karakter olmalidir")]
-        [DisplayName("Şifre Tekrar")]
-        [DataType(DataType.Password)]
-        public string RePassword { get; set; }
-        public IFormFile Picture { get; set; }
-
-        public List<CheckBoxvM> Roller { get; set; } = new List<CheckBoxvM>();
 
     }
 }

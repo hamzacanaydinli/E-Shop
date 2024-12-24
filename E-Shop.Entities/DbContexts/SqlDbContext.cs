@@ -13,11 +13,14 @@ namespace E_Shop.Entities.DbContexts
         public DbSet<Product> Products { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Sale> Sales { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<MyUser> Users { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Shipper> Shippers { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
+        public DbSet<CommUser> CommUsers { get; set; }
+
+
 
         public SqlDbContext()
         {
