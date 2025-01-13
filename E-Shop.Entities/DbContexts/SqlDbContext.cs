@@ -19,6 +19,7 @@ namespace E_Shop.Entities.DbContexts
         public DbSet<Shipper> Shippers { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<CommUser> CommUsers { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
 
 

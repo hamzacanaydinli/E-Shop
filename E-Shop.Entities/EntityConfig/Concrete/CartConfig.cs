@@ -23,12 +23,12 @@ namespace E_Shop.Entities.EntityConfig.Concrete
             builder.Property(p => p.Date).HasMaxLength(100);
 
             // builder.Property(p => p.Image).IsRequired();
-            builder.Property(p => p.Image).HasMaxLength(100);
+            //builder.Property(p => p.Image).HasMaxLength(100);
             //builder.HasIndex(p => p.Image).IsUnique();
 
-            builder.Property(p => p.UserId).IsRequired();
-            builder.Property(p => p.UserId).HasMaxLength(100);
-            builder.HasIndex(p => p.UserId).IsUnique();
+            builder.Property(p => p.MyUserId).IsRequired();
+            builder.Property(p => p.MyUserId).HasMaxLength(100);
+            builder.HasIndex(p => p.MyUserId).IsUnique();
         }
     }
 }

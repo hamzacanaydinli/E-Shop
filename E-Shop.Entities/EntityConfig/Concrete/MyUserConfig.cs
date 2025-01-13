@@ -28,8 +28,6 @@ namespace E_Shop.Entities.EntityConfig.Concrete
                 .WithMany(p => p.Users)
                 .HasForeignKey(p => p.RoleId);
 
-            builder.HasData(new MyUser() { Id = 1, Name = "Hamza", SurName = "Aydinli", Email = "hamza@gmail.com", Gsm = "05111111111", Password = "qweasd", RoleId = 1 });
-            builder.HasData(new MyUser() { Id = 2, Name = "Ahmet", SurName = "Yilmaz", Email = "ahmet@gmail.com", Gsm = "05211111111", Password = "qweasd", RoleId = 2 });
 
         }
     }

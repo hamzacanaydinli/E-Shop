@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -8,29 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace E_Shop.Entities.Migrations
 {
     /// <inheritdoc />
-    public partial class İnitDbb : Migration
+    public partial class İnitDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Carts",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UrunId = table.Column<int>(type: "int", maxLength: 100, nullable: false),
-                    Quantity = table.Column<int>(type: "int", maxLength: 100, nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", maxLength: 100, nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", maxLength: 100, nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    UserId = table.Column<int>(type: "int", maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Carts", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
@@ -38,7 +19,8 @@ namespace E_Shop.Entities.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -53,11 +35,28 @@ namespace E_Shop.Entities.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Message = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
+                    Message = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CommUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "İletisim",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Adi = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Mail = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Mesaj = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_İletisim", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -66,7 +65,8 @@ namespace E_Shop.Entities.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    RoleName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -84,7 +84,8 @@ namespace E_Shop.Entities.Migrations
                     Price = table.Column<decimal>(type: "decimal(18,2)", maxLength: 100, nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", maxLength: 100, nullable: false),
                     Image = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    UserId = table.Column<int>(type: "int", maxLength: 100, nullable: false)
+                    MyUserId = table.Column<int>(type: "int", maxLength: 100, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -98,11 +99,26 @@ namespace E_Shop.Entities.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CompanyName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                    Phone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Shippers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Size",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SizeNumber = table.Column<int>(type: "int", maxLength: 20, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Size", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -112,7 +128,8 @@ namespace E_Shop.Entities.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -136,7 +153,8 @@ namespace E_Shop.Entities.Migrations
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Gsm = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false)
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -150,51 +168,144 @@ namespace E_Shop.Entities.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderDate = table.Column<DateTime>(type: "datetime2", maxLength: 100, nullable: false),
-                    RequiredDate = table.Column<DateTime>(type: "datetime2", maxLength: 100, nullable: false),
-                    ShippedDate = table.Column<DateTime>(type: "datetime2", maxLength: 100, nullable: false),
-                    ShipVia = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ShipAdress = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ShipCity = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ShipperId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Orders_Shippers_ShipperId",
-                        column: x => x.ShipperId,
-                        principalTable: "Shippers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", maxLength: 100, nullable: false),
                     StockQuantity = table.Column<int>(type: "int", maxLength: 100, nullable: false),
-                    SubCategotyId = table.Column<int>(type: "int", nullable: false)
+                    SubCategoryId = table.Column<int>(type: "int", nullable: false),
+                    PhotoPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_SubCategories_SubCategotyId",
-                        column: x => x.SubCategotyId,
+                        name: "FK_Products_SubCategories_SubCategoryId",
+                        column: x => x.SubCategoryId,
                         principalTable: "SubCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Addresses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AddressName = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
+                    AddressDescription = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    District = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Province = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    MyUserId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Addresses_Users_MyUserId",
+                        column: x => x.MyUserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Carts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UrunId = table.Column<int>(type: "int", maxLength: 100, nullable: false),
+                    Quantity = table.Column<int>(type: "int", maxLength: 100, nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", maxLength: 100, nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", maxLength: 100, nullable: false),
+                    MyUserId = table.Column<int>(type: "int", maxLength: 100, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Carts_Users_MyUserId",
+                        column: x => x.MyUserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductSize",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductsId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SizesId = table.Column<int>(type: "int", nullable: false),
+                    SizeId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SizeNumber = table.Column<int>(type: "int", nullable: false),
+                    SizeAmount = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductSize", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductSize_Products_ProductsId",
+                        column: x => x.ProductsId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductSize_Size_SizesId",
+                        column: x => x.SizesId,
+                        principalTable: "Size",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderDate = table.Column<DateOnly>(type: "date", nullable: false, defaultValueSql: "GETDATE()"),
+                    RequiredDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    ShippedDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    Freight = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    AddressId = table.Column<int>(type: "int", nullable: false),
+                    MyUserId = table.Column<int>(type: "int", nullable: false),
+                    ShipperId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_Shippers_ShipperId",
+                        column: x => x.ShipperId,
+                        principalTable: "Shippers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_Users_MyUserId",
+                        column: x => x.MyUserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -207,7 +318,8 @@ namespace E_Shop.Entities.Migrations
                     Quantity = table.Column<int>(type: "int", maxLength: 100, nullable: false),
                     Discount = table.Column<decimal>(type: "decimal(18,2)", maxLength: 100, nullable: false),
                     OrderId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -232,22 +344,26 @@ namespace E_Shop.Entities.Migrations
                 values: new object[] { 1, "hamzacanaydinli@gmail.com", "AAA", "hamza" });
 
             migrationBuilder.InsertData(
-                table: "Roles",
-                columns: new[] { "Id", "RoleName" },
+                table: "Size",
+                columns: new[] { "Id", "CreatedAt", "SizeNumber" },
                 values: new object[,]
                 {
-                    { 1, "Admin" },
-                    { 2, "User" }
+                    { 1, new DateTime(2025, 1, 1, 23, 39, 19, 248, DateTimeKind.Local).AddTicks(4190), 30 },
+                    { 2, new DateTime(2025, 1, 1, 23, 39, 19, 248, DateTimeKind.Local).AddTicks(4212), 32 },
+                    { 3, new DateTime(2025, 1, 1, 23, 39, 19, 248, DateTimeKind.Local).AddTicks(4215), 34 },
+                    { 4, new DateTime(2025, 1, 1, 23, 39, 19, 248, DateTimeKind.Local).AddTicks(4217), 36 }
                 });
 
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "Email", "Gsm", "Name", "Password", "RoleId", "SurName" },
-                values: new object[,]
-                {
-                    { 1, "hamza@gmail.com", "05111111111", "Hamza", "qweasd", 1, "Aydinli" },
-                    { 2, "ahmet@gmail.com", "05211111111", "Ahmet", "qweasd", 2, "Yilmaz" }
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_Addresses_Id",
+                table: "Addresses",
+                column: "Id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Addresses_MyUserId",
+                table: "Addresses",
+                column: "MyUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Carts_Id",
@@ -256,15 +372,15 @@ namespace E_Shop.Entities.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Carts_UrunId",
+                name: "IX_Carts_MyUserId",
                 table: "Carts",
-                column: "UrunId",
+                column: "MyUserId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Carts_UserId",
+                name: "IX_Carts_UrunId",
                 table: "Carts",
-                column: "UserId",
+                column: "UrunId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -276,6 +392,12 @@ namespace E_Shop.Entities.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_CommUsers_Id",
                 table: "CommUsers",
+                column: "Id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_İletisim_Id",
+                table: "İletisim",
                 column: "Id",
                 unique: true);
 
@@ -296,10 +418,20 @@ namespace E_Shop.Entities.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Orders_AddressId",
+                table: "Orders",
+                column: "AddressId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_Id",
                 table: "Orders",
                 column: "Id",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_MyUserId",
+                table: "Orders",
+                column: "MyUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_ShipperId",
@@ -313,9 +445,19 @@ namespace E_Shop.Entities.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_SubCategotyId",
+                name: "IX_Products_SubCategoryId",
                 table: "Products",
-                column: "SubCategotyId");
+                column: "SubCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductSize_ProductsId",
+                table: "ProductSize",
+                column: "ProductsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductSize_SizesId",
+                table: "ProductSize",
+                column: "SizesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Roles_Id",
@@ -336,15 +478,15 @@ namespace E_Shop.Entities.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sales_UrunId",
+                name: "IX_Sales_MyUserId",
                 table: "Sales",
-                column: "UrunId",
+                column: "MyUserId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sales_UserId",
+                name: "IX_Sales_UrunId",
                 table: "Sales",
-                column: "UserId",
+                column: "UrunId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -357,6 +499,12 @@ namespace E_Shop.Entities.Migrations
                 name: "IX_Shippers_Phone",
                 table: "Shippers",
                 column: "Phone",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Size_Id",
+                table: "Size",
+                column: "Id",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -404,13 +552,16 @@ namespace E_Shop.Entities.Migrations
                 name: "CommUsers");
 
             migrationBuilder.DropTable(
+                name: "İletisim");
+
+            migrationBuilder.DropTable(
                 name: "OrderDetails");
 
             migrationBuilder.DropTable(
-                name: "Sales");
+                name: "ProductSize");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Sales");
 
             migrationBuilder.DropTable(
                 name: "Orders");
@@ -419,7 +570,10 @@ namespace E_Shop.Entities.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Roles");
+                name: "Size");
+
+            migrationBuilder.DropTable(
+                name: "Addresses");
 
             migrationBuilder.DropTable(
                 name: "Shippers");
@@ -428,7 +582,13 @@ namespace E_Shop.Entities.Migrations
                 name: "SubCategories");
 
             migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
         }
     }
 }

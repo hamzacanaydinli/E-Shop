@@ -4,16 +4,22 @@ namespace E_Shop.Entities.Entities.Concrete
 {
     public class Order : BaseEntity
     {
-        public DateTime OrderDate { get; set; } = DateTime.Now;
-        public DateTime RequiredDate { get; set; } = DateTime.Now.AddDays(2);
-        public DateTime ShippedDate { get; set; } = DateTime.Now.AddDays(3);
-        public string ShipVia { get; set; }
-        public string ShipAdress { get; set; }
-        public string ShipCity { get; set; }
+        public DateOnly OrderDate { get; set; }
+        public DateOnly? RequiredDate { get; set; }
+        public DateOnly? ShippedDate { get; set; }
+        public decimal Freight { get; set; }
 
+
+        public int AddressId { get; set; }
+        public int MyUserId { get; set; }
         public int ShipperId { get; set; }
-        public Shipper Shipper { get; set; }
 
+
+        public Address Addresses { get; set; }
+        public MyUser MyUser { get; set; }
+        public Shipper Shipper { get; set; }
         public ICollection<OrderDetail> OrderDetails { get; set; }
+
+
     }
 }

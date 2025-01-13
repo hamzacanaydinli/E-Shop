@@ -20,7 +20,7 @@ namespace E_Shop.Entities.Entities.Concrete
         public string Image { get; set; }
 
 
-        public int UserId { get; set; }
+        public int MyUserId { get; set; }
 
 
     }

@@ -1,4 +1,4 @@
-﻿@using E_ShopMVC.Models.VMs.Account
+﻿    @using E_ShopMVC.Models.VMs.Account
 @model ContactVM
 
 <!DOCTYPE html>
@@ -29,8 +29,6 @@
 </head>
 
 <body>
-
-    @await Component.InvokeAsync("İletişim")
 
     
 
@@ -66,7 +64,7 @@
     </div>
     <!-- Offcanvas Menu End -->
     <!-- Header Section Begin -->
-    <header class="header">
+    @* <header class="header">
         <div class="header__top">
             <div class="container">
                 <div class="row">
@@ -127,7 +125,7 @@
             </div>
             <div class="canvas__open"><i class="fa fa-bars"></i></div>
         </div>
-    </header>
+    </header> *@
     <!-- Header Section End -->
     <!-- Map Begin -->
     <div class="map">
@@ -182,7 +180,7 @@
     </section>
     <!-- Contact Section End -->
     <!-- Footer Section Begin -->
-    <footer class="footer">
+    @* <footer class="footer">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
@@ -239,7 +237,7 @@
                 </div>
             </div>
         </div>
-    </footer>
+    </footer> *@
     <!-- Footer Section End -->
     <!-- Search Begin -->
     <div class="search-model">
@@ -248,6 +246,7 @@
             <form class="search-model-form">
                 <input type="text" id="search-input" placeholder="Search here.....">
             </form>
+
         </div>
     </div>
     <!-- Search End -->

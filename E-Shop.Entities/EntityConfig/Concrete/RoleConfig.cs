@@ -13,9 +13,6 @@ namespace E_Shop.Entities.EntityConfig.Concrete
             builder.Property(p => p.RoleName).HasMaxLength(50);
             builder.HasIndex(p => p.RoleName).IsUnique();
 
-            builder.HasData(new Role() { Id = 1, RoleName = "Admin" });
-            builder.HasData(new Role() { Id = 2, RoleName = "User" });
-
         }
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Shop.Entities.Migrations
 {
     [DbContext(typeof(SqlDbContext))]
-    [Migration("20241219152214_İnitDbb")]
-    partial class İnitDbb
+    [Migration("20250101203919_İnitDb")]
+    partial class İnitDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,51 @@ namespace E_Shop.Entities.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AddressDescription")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("AddressName")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("District")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("MyUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Province")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.HasIndex("MyUserId");
+
+                    b.ToTable("Addresses");
+                });
+
             modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.Cart", b =>
                 {
                     b.Property<int>("Id")
@@ -33,13 +78,17 @@ namespace E_Shop.Entities.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("Date")
                         .HasMaxLength(100)
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Image")
+                    b.Property<int>("MyUserId")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasMaxLength(100)
@@ -53,19 +102,15 @@ namespace E_Shop.Entities.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasMaxLength(100)
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.HasIndex("UrunId")
+                    b.HasIndex("MyUserId")
                         .IsUnique();
 
-                    b.HasIndex("UserId")
+                    b.HasIndex("UrunId")
                         .IsUnique();
 
                     b.ToTable("Carts");
@@ -83,6 +128,10 @@ namespace E_Shop.Entities.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasMaxLength(100)
@@ -103,6 +152,10 @@ namespace E_Shop.Entities.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -143,6 +196,10 @@ namespace E_Shop.Entities.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -186,28 +243,6 @@ namespace E_Shop.Entities.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Email = "hamza@gmail.com",
-                            Gsm = "05111111111",
-                            Name = "Hamza",
-                            Password = "qweasd",
-                            RoleId = 1,
-                            SurName = "Aydinli"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Email = "ahmet@gmail.com",
-                            Gsm = "05211111111",
-                            Name = "Ahmet",
-                            Password = "qweasd",
-                            RoleId = 2,
-                            SurName = "Yilmaz"
-                        });
                 });
 
             modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.Order", b =>
@@ -218,40 +253,41 @@ namespace E_Shop.Entities.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("OrderDate")
-                        .HasMaxLength(100)
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("RequiredDate")
-                        .HasMaxLength(100)
-                        .HasColumnType("datetime2");
+                    b.Property<decimal>("Freight")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("ShipAdress")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<int>("MyUserId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("ShipCity")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<DateOnly>("OrderDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("date")
+                        .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<string>("ShipVia")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<DateOnly?>("RequiredDate")
+                        .HasColumnType("date");
 
-                    b.Property<DateTime>("ShippedDate")
-                        .HasMaxLength(100)
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly?>("ShippedDate")
+                        .HasColumnType("date");
 
                     b.Property<int>("ShipperId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AddressId");
+
                     b.HasIndex("Id")
                         .IsUnique();
+
+                    b.HasIndex("MyUserId");
 
                     b.HasIndex("ShipperId");
 
@@ -265,6 +301,10 @@ namespace E_Shop.Entities.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2");
 
                     b.Property<decimal>("Discount")
                         .HasMaxLength(100)
@@ -304,10 +344,17 @@ namespace E_Shop.Entities.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("PhotoPath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasMaxLength(100)
@@ -317,7 +364,7 @@ namespace E_Shop.Entities.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("int");
 
-                    b.Property<int>("SubCategotyId")
+                    b.Property<int>("SubCategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -330,9 +377,49 @@ namespace E_Shop.Entities.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.HasIndex("SubCategotyId");
+                    b.HasIndex("SubCategoryId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.ProductSize", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ProductId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SizeAmount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SizeId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SizeNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SizesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductsId");
+
+                    b.HasIndex("SizesId");
+
+                    b.ToTable("ProductSize");
                 });
 
             modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.Role", b =>
@@ -342,6 +429,10 @@ namespace E_Shop.Entities.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("RoleName")
                         .IsRequired()
@@ -357,18 +448,6 @@ namespace E_Shop.Entities.Migrations
                         .IsUnique();
 
                     b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            RoleName = "Admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            RoleName = "User"
-                        });
                 });
 
             modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.Sale", b =>
@@ -379,6 +458,10 @@ namespace E_Shop.Entities.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("Date")
                         .HasMaxLength(100)
                         .HasColumnType("datetime2");
@@ -387,6 +470,10 @@ namespace E_Shop.Entities.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("MyUserId")
+                        .HasMaxLength(100)
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasMaxLength(100)
@@ -400,19 +487,15 @@ namespace E_Shop.Entities.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasMaxLength(100)
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.HasIndex("UrunId")
+                    b.HasIndex("MyUserId")
                         .IsUnique();
 
-                    b.HasIndex("UserId")
+                    b.HasIndex("UrunId")
                         .IsUnique();
 
                     b.ToTable("Sales");
@@ -431,6 +514,10 @@ namespace E_Shop.Entities.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -447,6 +534,56 @@ namespace E_Shop.Entities.Migrations
                     b.ToTable("Shippers");
                 });
 
+            modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.Size", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SizeNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("Size");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2025, 1, 1, 23, 39, 19, 248, DateTimeKind.Local).AddTicks(4190),
+                            SizeNumber = 30
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2025, 1, 1, 23, 39, 19, 248, DateTimeKind.Local).AddTicks(4212),
+                            SizeNumber = 32
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(2025, 1, 1, 23, 39, 19, 248, DateTimeKind.Local).AddTicks(4215),
+                            SizeNumber = 34
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedAt = new DateTime(2025, 1, 1, 23, 39, 19, 248, DateTimeKind.Local).AddTicks(4217),
+                            SizeNumber = 36
+                        });
+                });
+
             modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.SubCategory", b =>
                 {
                     b.Property<int>("Id")
@@ -457,6 +594,10 @@ namespace E_Shop.Entities.Migrations
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -473,6 +614,61 @@ namespace E_Shop.Entities.Migrations
                     b.ToTable("SubCategories");
                 });
 
+            modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.İletisim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Adi")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Mail")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Mesaj")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("İletisim");
+                });
+
+            modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.Address", b =>
+                {
+                    b.HasOne("E_Shop.Entities.Entities.Concrete.MyUser", "MyUser")
+                        .WithMany("Addresses")
+                        .HasForeignKey("MyUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MyUser");
+                });
+
+            modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.Cart", b =>
+                {
+                    b.HasOne("E_Shop.Entities.Entities.Concrete.MyUser", null)
+                        .WithMany("Cart")
+                        .HasForeignKey("MyUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.MyUser", b =>
                 {
                     b.HasOne("E_Shop.Entities.Entities.Concrete.Role", "Role")
@@ -486,11 +682,27 @@ namespace E_Shop.Entities.Migrations
 
             modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.Order", b =>
                 {
+                    b.HasOne("E_Shop.Entities.Entities.Concrete.Address", "Addresses")
+                        .WithMany("Orders")
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("E_Shop.Entities.Entities.Concrete.MyUser", "MyUser")
+                        .WithMany("Orders")
+                        .HasForeignKey("MyUserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("E_Shop.Entities.Entities.Concrete.Shipper", "Shipper")
                         .WithMany("Orders")
                         .HasForeignKey("ShipperId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Addresses");
+
+                    b.Navigation("MyUser");
 
                     b.Navigation("Shipper");
                 });
@@ -516,13 +728,32 @@ namespace E_Shop.Entities.Migrations
 
             modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.Product", b =>
                 {
-                    b.HasOne("E_Shop.Entities.Entities.Concrete.SubCategory", "SubCategory")
+                    b.HasOne("E_Shop.Entities.Entities.Concrete.SubCategory", "SubCategories")
                         .WithMany("Products")
-                        .HasForeignKey("SubCategotyId")
+                        .HasForeignKey("SubCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("SubCategory");
+                    b.Navigation("SubCategories");
+                });
+
+            modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.ProductSize", b =>
+                {
+                    b.HasOne("E_Shop.Entities.Entities.Concrete.Product", "Products")
+                        .WithMany("ProductSizes")
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("E_Shop.Entities.Entities.Concrete.Size", "Sizes")
+                        .WithMany("ProductSizes")
+                        .HasForeignKey("SizesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Products");
+
+                    b.Navigation("Sizes");
                 });
 
             modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.SubCategory", b =>
@@ -536,9 +767,23 @@ namespace E_Shop.Entities.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.Address", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
             modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.Category", b =>
                 {
                     b.Navigation("SubCategories");
+                });
+
+            modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.MyUser", b =>
+                {
+                    b.Navigation("Addresses");
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.Order", b =>
@@ -549,6 +794,8 @@ namespace E_Shop.Entities.Migrations
             modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.Product", b =>
                 {
                     b.Navigation("OrderDetails");
+
+                    b.Navigation("ProductSizes");
                 });
 
             modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.Role", b =>
@@ -559,6 +806,11 @@ namespace E_Shop.Entities.Migrations
             modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.Shipper", b =>
                 {
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.Size", b =>
+                {
+                    b.Navigation("ProductSizes");
                 });
 
             modelBuilder.Entity("E_Shop.Entities.Entities.Concrete.SubCategory", b =>

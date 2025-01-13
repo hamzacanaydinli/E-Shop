@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-namespace Mate.MVC.Controllers
+namespace E_ShopMVC.Controllers
 {
     [Authorize]
     public class AccountController(IManager<Role> roleManager, INotyfService notyfService, IManager<MyUser> userManager, SqlDbContext sqlDbContext) : Controller
@@ -135,6 +135,5 @@ namespace Mate.MVC.Controllers
             return RedirectToAction("Login", "Account");
 
         }
-
     }
 }

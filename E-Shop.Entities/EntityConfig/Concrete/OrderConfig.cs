@@ -1,39 +1,34 @@
 ﻿using E_Shop.Entities.Entities.Concrete;
 using E_Shop.Entities.EntityConfig.Abstract;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace E_Shop.Entities.EntityConfig.Concrete
+
 {
     public class OrderConfig : BaseConfig<Order>
     {
         public override void Configure(EntityTypeBuilder<Order> builder)
         {
             base.Configure(builder);
-            builder.Property(p => p.OrderDate).IsRequired();
-            builder.Property(p => p.OrderDate).HasMaxLength(100);
 
-            builder.Property(p => p.RequiredDate).IsRequired();
-            builder.Property(p => p.RequiredDate).HasMaxLength(100);
-
-
-            builder.Property(p => p.ShippedDate).IsRequired();
-            builder.Property(p => p.ShippedDate).HasMaxLength(100);
+            builder.Property(x => x.OrderDate).IsRequired();
+            builder.Property(x => x.OrderDate).ValueGeneratedOnAdd()
+                                              .HasDefaultValueSql("GETDATE()"); //varsayılan değer
 
 
-            builder.Property(p => p.ShipVia).IsRequired();
-            builder.Property(p => p.ShipVia).HasMaxLength(100);
-            //builder.HasIndex(p => p.ShipVia).IsUnique();
+            builder.HasOne(o => o.Shipper)
+                .WithMany(s => s.Orders)
+                .HasForeignKey(o => o.ShipperId);
 
-            builder.Property(p => p.ShipAdress).IsRequired();
-            builder.Property(p => p.ShipAdress).HasMaxLength(100);
+            builder.HasOne(o => o.MyUser)
+                .WithMany(u => u.Orders)
+                .HasForeignKey(o => o.MyUserId)
+                .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Property(p => p.ShipCity).IsRequired();
-            builder.Property(p => p.ShipCity).HasMaxLength(100);
-
-            builder.HasOne(p => p.Shipper)
-                .WithMany(p => p.Orders)
-                .HasForeignKey(p => p.ShipperId);
-
+            builder.HasOne(o => o.Addresses) //order sınıfındaki adres navigation propertysi
+                .WithMany(a => a.Orders) //adres sınıfınfaki order navigation propertysi
+                .HasForeignKey(o => o.AddressId); // order sınıfındaki foreign key AdressId
         }
     }
 }

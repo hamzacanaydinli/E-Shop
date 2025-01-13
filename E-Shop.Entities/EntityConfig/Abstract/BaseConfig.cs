@@ -11,6 +11,7 @@ namespace E_Shop.Entities.EntityConfig.Abstract
         {
             builder.HasIndex(p => p.Id).IsUnique();
             builder.HasKey(p => p.Id);//Primary Key
+            builder.Property(x => x.CreatedAt).ValueGeneratedOnAdd();
 
         }
     }

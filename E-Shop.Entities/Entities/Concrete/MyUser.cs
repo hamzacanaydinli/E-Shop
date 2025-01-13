@@ -14,9 +14,15 @@ namespace E_Shop.Entities.Entities.Concrete
         //public string RefreshToken { get; set; }
         //public DateTime? RefreshTokenEndDate { get; set; }
 
+        //public int? AdressId { get; set; }
+
         public int RoleId { get; set; } = 2;
 
         public Role Role { get; set; }
+
+        public List<Cart>? Cart { get; set; }
+        public ICollection<Address> Addresses { get; set; }
+        public ICollection<Order> Orders { get; set; }
 
 
     }
